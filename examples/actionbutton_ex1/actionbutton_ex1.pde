@@ -24,6 +24,8 @@ ActionButton btn2 = ActionButton(4, ActionButton::PULL_DOWN);
 // use internal pull-up (no external resistor required)
 ActionButton btn3 = ActionButton(16, ActionButton::PULL_UP_INTERNAL);
 
+// the callback function provides a referene to the 
+// button that fired the event
 void onPressed(ActionButton & btn) {
   Serial.print("button ");
   Serial.print(btn.getPin());
@@ -76,12 +78,14 @@ void setup() {
 }
 
 void loop() {
+  // must call update for each button
   btn1.update();
   btn2.update();
   btn3.update();
   
   // example of using polling technique
-  if (btn3.isPressed()) Serial.println("buttonn 16 pressed");
+  // if using polling, check state after calling the update method
+  if (btn3.isPressed()) Serial.println("button 16 pressed");
   if (btn3.isReleased()) Serial.println("button 16 released");
   if (btn3.isSustained()) Serial.println("button 16 sustained");
 }
